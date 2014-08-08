@@ -103,12 +103,7 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	loop_options = {'--'+o for o in loop_options}
 
 	# Prepare opts and values for function call
-	unwrap_options = spec[0].copy()
-	unwrap_options = {o: None for o in unwrap_options}
-
-	# List of OK None values - arguments that are actually passed as None, but don't represent a missing argument ;)
-	# ...or function parameters that have None as a default
-	ok_None_values = set()
+	unwrap_options = {}
 
 	# Fill in defaults
 	num_defaults = len(spec[3])
@@ -116,8 +111,6 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 		diff = len(spec[0]) - num_defaults
 		for i in range(0, num_defaults):
 			unwrap_options[spec[0][diff+i]] = spec[3][i]
-			if spec[3][i] is None:
-				ok_None_values.add('--'+spec[0][diff+i])
 
 	# Get options
 	try:
@@ -133,10 +126,7 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	        print(func.__doc__)
 	        return 0
 	    elif o in loop_options:
-	    	val = try_to_parse(a)
-	    	if represents_none(a):
-	    		ok_None_values.add(o)
-	    	unwrap_options[o.lstrip('-')] = val
+	    	unwrap_options[o.lstrip('-')] = try_to_parse(a)
 	    else:
 	        print('Error: Unkown option '+o)
 	        return print_opt_arg_error()
@@ -148,8 +138,8 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	#     return print_opt_arg_error() 
 
 	# verification
-	for k, v in unwrap_options.items():
-	    if v is None and '--'+k not in ok_None_values:
+	for k in spec[0]:
+	    if k not in unwrap_options:
 	        print('Error: Missing flag: '+k)
 	        return print_opt_arg_error()
 
