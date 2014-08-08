@@ -18,15 +18,15 @@ By default, it will return 0 and print 'Done' when you function has finished. Th
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
 To enable, just include the following in your code (and replace 'function_name' with your function):
-<code>
+
 	import commanderline.commander_line as cl
 	if __name__ == '__main__':
 		cl.commander_line(function_name)
-</code>
+
 
 P.S. Adding: 
-<code>
+
 	#!/usr/bin/env python3
-</code>
+
 as your shebang line will provide a nice and portable run environment for your new command-line tool
 	
