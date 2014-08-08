@@ -81,6 +81,10 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	if __name__ == '__main__':
 		cl.commander_line(function_name)
 
+
+	P.S. Adding: 
+	#!/usr/bin/env python3
+	as your shebang line will provide a nice and portable run environment for your new command-line tool
 	'''
 
 	if argv is None:
