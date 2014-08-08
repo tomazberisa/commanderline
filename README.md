@@ -1,4 +1,4 @@
-commander_line(func, print_done=True, squash_return_value=True, argv=None)
+	commander_line(func, print_done=True, squash_return_value=True, argv=None)
 
 Q: Officer, state your name and rank!
 A: Commander Line reporting for duty, Sir!
