@@ -55,12 +55,13 @@ def print_opt_arg_error():
     return(2)
 
 def commander_line(func, print_done=True, squash_return_value=True, argv=None):
-	'''	commander_line(func, print_done=True, squash_return_value=True, argv=None)
+	'''# Commander Line
+	commander_line(func, print_done=True, squash_return_value=True, argv=None)
 
-Q: Officer, state your name and rank!
-A: Commander Line reporting for duty, Sir!
-Q: What is the most sacred code that we honor?
-A: Convention over configuration, Sir!
+* Q: Officer, state your name and rank!
+* A: Commander Line reporting for duty, Sir!
+* Q: What is the most sacred code that we honor?
+* A: Convention over configuration, Sir!
 
 Commander Line converts any python function to a full-fledged command line tool.
 
