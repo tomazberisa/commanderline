@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import sys
 import inspect
 import getopt
@@ -66,7 +68,7 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	It will attempt to parse argument values in the following order:
 		1. int
 		2. float
-		3. bool
+		3. bool (True or False)
 		4. None
 		5. leave as string (default)
 	Commander Line respects default values defined by your function and will use them when needed (i.e., when arguments are missing).
