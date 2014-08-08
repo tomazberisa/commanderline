@@ -158,3 +158,5 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 	else:
 		return return_value
 
+if __name__ == '__main__':
+	commander_line(commander_line)
