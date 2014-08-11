@@ -1,11 +1,6 @@
 # Commander Line
 	commander_line(func, print_done=True, squash_return_value=True, argv=None)
 
-* Q: Officer, state your name and rank!
-* A: Commander Line reporting for duty, Sir!
-* Q: What is the most sacred code that we honor?
-* A: Convention over configuration, Sir!
-
 Commander Line converts any python function to a full-fledged command line tool.
 
 It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
