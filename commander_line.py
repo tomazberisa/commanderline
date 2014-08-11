@@ -54,7 +54,7 @@ def print_opt_arg_error():
     print('For help use --help')
     return(2)
 
-def commander_line(func, print_done=True, squash_return_value=True, argv=None):
+def commander_line(funcs, print_done=True, squash_return_value=True, argv=None):
 	'''# Commander Line
 	commander_line(func, print_done=True, squash_return_value=True, argv=None)
 
@@ -66,6 +66,12 @@ def commander_line(func, print_done=True, squash_return_value=True, argv=None):
 Commander Line converts any python function to a full-fledged command line tool.
 
 It will take any function as an parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
+
+To enable, just include the following in your code (and replace 'function_name' with your function):
+
+	import commanderline.commander_line as cl
+	if __name__ == '__main__':
+		cl.commander_line(function_name)
 
 It will attempt to parse argument values in the following order:
 
@@ -81,12 +87,7 @@ By default, it will return 0 and print 'Done' when you function has finished. Th
 
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
-To enable, just include the following in your code (and replace 'function_name' with your function):
-
-	import commanderline.commander_line as cl
-	if __name__ == '__main__':
-		cl.commander_line(function_name)
-
+If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
 
 P.S. Adding: 
 
@@ -98,13 +99,52 @@ as your shebang line will provide a nice and portable run environment for your n
 	if argv is None:
 		argv = sys.argv
 
+	if not isinstance(funcs, (list, tuple)):
+		funcs = (funcs,)
+
+	# Manually pre-parse command line options in search of function name (a chicken-and-egg problem: the function name defines the rest of the arguments, but getopt needs all arguments defined beforehand)
+	# Get function name to call, before any other arg parsing is done
+
+	func_ind = 0 # set default function
+	for arg_ind, v in enumerate(argv):
+		if v == '-f': # Found function definition!
+			if arg_ind+1 < len(argv): # ...and a function name (hopefully) exists after it!
+				func_name = argv[arg_ind+1]
+
+				# Search for the provided function name in the function list
+				found_arg_function_not_found = True
+				for i, f in enumerate(funcs):
+					if f.__name__ == func_name:
+						func_ind = i
+						found_arg_function_not_found = False
+						break
+				
+				# If the provided function name is not found - error & exit
+				if found_arg_function_not_found:
+					print('Error: Specified function not found!')
+					return print_opt_arg_error()	
+			else:
+				print('Error: Irregular parameter convention. Don\'t know what to do. Eject, eject!')
+				return print_opt_arg_error()
+
+			break		
+
+	func = funcs[func_ind]
+
 	spec = inspect.getargspec(func)
 
-	help_options = {'short':'h', 'long':'help'}
+	# print(spec)
+
+	# Add extra options that are OK, but bypassed
+	extra_options = {'short':'f', 'short_getopt':'f:'}
+	loop_options_extra = ('-'+extra_options['short'])
+
+	# Set help options
+	help_options = {'short':'h', 'short_getopt':'h', 'long':'help', 'long_getopt':'help'}
 	loop_options_help = ('-'+help_options['short'], '--'+help_options['long'])
 
     # Prepare options for getopt()
-	getopt_options_default = [help_options['long']]
+	getopt_options_default = [help_options['long_getopt']]
 
 	getopt_options_user = spec[0].copy()
 	getopt_options_user = [o+'=' for o in getopt_options_user]
@@ -120,20 +160,21 @@ as your shebang line will provide a nice and portable run environment for your n
 	unwrap_options = {}
 
 	# Fill in defaults
-	num_defaults = len(spec[3])
-	if num_defaults > 0:
-		diff = len(spec[0]) - num_defaults
-		for i in range(0, num_defaults):
-			unwrap_options[spec[0][diff+i]] = spec[3][i]
+	num_defaults = 0
+	if spec[3] is not None:
+		num_defaults = len(spec[3])
+		if num_defaults > 0:
+			diff = len(spec[0]) - num_defaults
+			for i in range(0, num_defaults):
+				unwrap_options[spec[0][diff+i]] = spec[3][i]
 
-	# Get options
+	# Get all other options
 	try:
-	    opts, args = getopt.getopt(argv[1:], help_options['short'], getopt_options)
+	    opts, args = getopt.getopt(argv[1:], help_options['short_getopt']+extra_options['short_getopt'], getopt_options)
 	except getopt.error as msg:
 	    print(msg)
 	    return print_opt_arg_error()
 
-	
 	# Process options
 	for o, a in opts:
 	    if o in loop_options_help:
@@ -141,15 +182,12 @@ as your shebang line will provide a nice and portable run environment for your n
 	        return 0
 	    elif o in loop_options:
 	    	unwrap_options[o.lstrip('-')] = try_to_parse(a)
+	    elif o in loop_options_extra:
+	    	# Do nothing, these should have already been parsed
+	    	pass
 	    else:
 	        print('Error: Unkown option '+o)
 	        return print_opt_arg_error()
-
-	# # process arguments
-	# for arg in args:
-	#     #process(arg) # process() is defined elsewhere 
-	#     print("Error: Unkown argument: "+arg)
-	#     return print_opt_arg_error() 
 
 	# verification
 	for k in spec[0]:

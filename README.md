@@ -10,6 +10,12 @@ Commander Line converts any python function to a full-fledged command line tool.
 
 It will take any function as an parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
 
+To enable, just include the following in your code (and replace 'function_name' with your function):
+
+	import commanderline.commander_line as cl
+	if __name__ == '__main__':
+		cl.commander_line(function_name)
+
 It will attempt to parse argument values in the following order:
 
 1. int
@@ -24,12 +30,7 @@ By default, it will return 0 and print 'Done' when you function has finished. Th
 
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
-To enable, just include the following in your code (and replace 'function_name' with your function):
-
-	import commanderline.commander_line as cl
-	if __name__ == '__main__':
-		cl.commander_line(function_name)
-
+If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
 
 P.S. Adding: 
 
