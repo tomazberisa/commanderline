@@ -8,7 +8,7 @@
 
 Commander Line converts any python function to a full-fledged command line tool.
 
-It will take any function as an parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
+It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
 
 To enable, just include the following in your code (and replace 'function_name' with your function):
 
