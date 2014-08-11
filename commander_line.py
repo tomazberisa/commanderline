@@ -78,7 +78,7 @@ It will attempt to parse argument values in the following order:
 
 Commander Line respects default values defined by your function and will use them when needed (i.e., when arguments are missing).
 
-By default, it will return 0 and print 'Done' when you function has finished. This behaviour can be controlled with the print_done and squash_return_value parameters.
+By default, it will return 0 and print 'Done' when your function has finished. This behaviour can be controlled with the print_done and squash_return_value parameters.
 
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
