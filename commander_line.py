@@ -50,6 +50,17 @@ def try_to_parse(s):
 	else: 
 		return s
 
+def print_funcs(funcs):
+	for i, f in enumerate(funcs):
+		if i==0:
+			comment = '*'
+		else:
+			comment = ''
+
+		print(str(f.__name__)+comment)
+
+	print('* denotes default function')
+
 def print_opt_arg_error():
     print('For help use --help')
     return(2)
@@ -83,6 +94,8 @@ By default, it will return 0 and print 'Done' when your function has finished. T
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
 If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
+
+List functions that are exported with -l
 
 P.S. Adding: 
 
@@ -138,6 +151,13 @@ as your shebang line will provide a nice and portable run environment for your n
 	help_options = {'short':'h', 'short_getopt':'h', 'long':'help', 'long_getopt':'help'}
 	loop_options_help = ('-'+help_options['short'], '--'+help_options['long'])
 
+	# set list options
+	list_options = {'short':'l', 'short_getopt':'l'}
+	loop_options_list = ('-'+list_options['short'])
+
+	# all getopt short options
+	getopt_short_options = help_options['short_getopt']+extra_options['short_getopt']+list_options['short_getopt']
+
     # Prepare options for getopt()
 	getopt_options_default = [help_options['long_getopt']]
 
@@ -165,7 +185,7 @@ as your shebang line will provide a nice and portable run environment for your n
 
 	# Get all other options
 	try:
-	    opts, args = getopt.getopt(argv[1:], help_options['short_getopt']+extra_options['short_getopt'], getopt_options)
+	    opts, args = getopt.getopt(argv[1:], getopt_short_options, getopt_options)
 	except getopt.error as msg:
 	    print(msg)
 	    return print_opt_arg_error()
@@ -180,6 +200,10 @@ as your shebang line will provide a nice and portable run environment for your n
 	    elif o in loop_options_extra:
 	    	# Do nothing, these should have already been parsed
 	    	pass
+	    elif o in loop_options_list:
+	    	print('Exported functions: ')
+	    	print_funcs(funcs)
+	    	return 0
 	    else:
 	        print('Error: Unkown option '+o)
 	        return print_opt_arg_error()
