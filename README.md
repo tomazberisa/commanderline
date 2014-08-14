@@ -27,6 +27,8 @@ Your function's __doc__ string will be printed when either of the -h and --help 
 
 If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
 
+List functions that are exported with -l
+
 P.S. Adding: 
 
 	#!/usr/bin/env python3
