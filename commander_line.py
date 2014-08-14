@@ -61,6 +61,11 @@ def print_funcs(funcs):
 
 	print('* denotes default function')
 
+def parse_list_from_cmd_line(in_list):
+    split_list = in_list.split(',')
+    final_list = [int(e) for e in split_list]
+    return final_list
+
 def print_opt_arg_error():
     print('For help use --help')
     return(2)
