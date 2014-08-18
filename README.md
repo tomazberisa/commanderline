@@ -1,5 +1,5 @@
 # Commander Line
-	commander_line(func, print_done=True, squash_return_value=True, argv=None)
+	commander_line(func, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True)
 
 Commander Line converts any python function to a full-fledged command line tool.
 
@@ -21,7 +21,7 @@ It will attempt to parse argument values in the following order:
 
 Commander Line respects default values defined by your function and will use them when needed (i.e., when arguments are missing).
 
-By default, it will return 0 and print 'Done' when your function has finished. This behaviour can be controlled with the print_done and squash_return_value parameters.
+By default, it will print out the command line arguments, return 0, and print 'Done' when your function has finished. This behaviour can be controlled with the print_argv_to_output, squash_return_value, and print_done parameters (respectively).
 
 Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
 
