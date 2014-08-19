@@ -1,5 +1,5 @@
 # Commander Line
-	commander_line(func, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True)
+	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
 Commander Line converts any python function to a full-fledged command line tool.
 
