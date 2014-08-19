@@ -50,16 +50,41 @@ def try_to_parse(s):
 	else: 
 		return s
 
+def fill_in_defaults(options, spec):
+	num_defaults = 0
+	if spec[3] is not None:
+		num_defaults = len(spec[3])
+		if num_defaults > 0:
+			diff = len(spec[0]) - num_defaults
+			for i in range(0, num_defaults):
+				options[spec[0][diff+i]] = spec[3][i]
+
+def print_func_args(f, comment=''):
+	print(str(f.__name__)+comment)
+
+	spec = inspect.getargspec(f)
+
+	defaults = {}
+	fill_in_defaults(defaults, spec)
+
+	for o in spec[0]:
+		print_default = ''
+		if o in defaults:
+			print_default = '='+repr(defaults[o])
+		print('  --'+o+print_default)
+
 def print_funcs(funcs):
 	for i, f in enumerate(funcs):
 		if i==0:
-			comment = '*'
+			comment = ' [default]'
 		else:
 			comment = ''
 
-		print(str(f.__name__)+comment)
+		# print(str(f.__name__)+comment)
 
-	print('* denotes default function')
+		print_func_args(f, comment)
+
+	# print('* denotes default function')
 
 def parse_list_from_cmd_line(in_list):
     split_list = in_list.split(',')
@@ -70,7 +95,7 @@ def print_opt_arg_error():
     print('For help use --help')
     return(2)
 
-def commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True):
+def commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True):
 	'''# Commander Line
 	commander_line(func, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True)
 
@@ -96,11 +121,11 @@ Commander Line respects default values defined by your function and will use the
 
 By default, it will print out the command line arguments, return 0, and print 'Done' when your function has finished. This behaviour can be controlled with the print_argv_to_output, squash_return_value, and print_done parameters (respectively).
 
-Your function's __doc__ string will be printed when either of the -h and --help arguments are provided.
+Your function's __doc__ string will be printed when either of the -h and --help arguments are provided. A summary of its parameters and defaults will also be printed (existence of summary can be controlled with help_prints_args).
 
 If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
 
-List functions that are exported with -l
+List functions that are exported (and their command line arguments) with -l
 
 P.S. Adding: 
 
@@ -182,14 +207,18 @@ as your shebang line will provide a nice and portable run environment for your n
 	# Prepare opts and values for function call
 	unwrap_options = {}
 
-	# Fill in defaults
-	num_defaults = 0
-	if spec[3] is not None:
-		num_defaults = len(spec[3])
-		if num_defaults > 0:
-			diff = len(spec[0]) - num_defaults
-			for i in range(0, num_defaults):
-				unwrap_options[spec[0][diff+i]] = spec[3][i]
+	# Fill in defaults	
+	fill_in_defaults(unwrap_options, spec)
+
+	# ...the block below has been replaced by the function called above...
+
+	# num_defaults = 0
+	# if spec[3] is not None:
+	# 	num_defaults = len(spec[3])
+	# 	if num_defaults > 0:
+	# 		diff = len(spec[0]) - num_defaults
+	# 		for i in range(0, num_defaults):
+	# 			unwrap_options[spec[0][diff+i]] = spec[3][i]
 
 	# Get all other options
 	try:
@@ -202,6 +231,8 @@ as your shebang line will provide a nice and portable run environment for your n
 	for o, a in opts:
 	    if o in loop_options_help:
 	        print(func.__doc__)
+	        if help_prints_args:
+	        	print_func_args(func, ' arguments (and defaults if defined):')
 	        return 0
 	    elif o in loop_options:
 	    	unwrap_options[o.lstrip('-')] = try_to_parse(a)
