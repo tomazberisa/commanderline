@@ -264,4 +264,4 @@ as your shebang line will provide a nice and portable run environment for your n
 		return return_value
 
 if __name__ == '__main__':
-	commander_line((commander_line,), print_argv_to_output=False)
+	commander_line((commander_line,), print_argv_to_output=False, help_prints_args=False)

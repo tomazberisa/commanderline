@@ -35,10 +35,3 @@ P.S. Adding:
 
 as your shebang line will provide a nice and portable run environment for your new command-line tool
 	
-commander_line arguments (and defaults if defined):
-  --funcs
-  --print_done=True
-  --squash_return_value=True
-  --argv=None
-  --print_argv_to_output=True
-  --help_prints_args=True
