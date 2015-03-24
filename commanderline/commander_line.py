@@ -99,7 +99,7 @@ def commander_line(funcs, print_done=True, squash_return_value=True, argv=None, 
 	'''# Commander Line 0.1.3 (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
-Commander Line makes any python function accessible from the command-line with just 2 lines of code.
+Commander Line makes any python function with simple arguments (int, float, bool, None, str) accessible from the command-line with just 2 lines of code.
 
 It will take any function (from the current scope) as a parameter and expose the function's parameters to the command line as long arguments (i.e., --param_name).
 
@@ -147,6 +147,13 @@ Just import Commander Line as follows:
 	5 - 4 = 1
 	Done
 
+	$ ./test.py -h
+	Run parameters: ./test.py -h
+	 add two values v1 and v2
+	add arguments (and defaults if defined):
+	  --v1
+	  --v2
+
 	$ ./test.py -f subtract -h
 	Run parameters: ./test.py -f subtract -h
 	 subtract v2 from v2
@@ -154,9 +161,19 @@ Just import Commander Line as follows:
 	  --v1
 	  --v2
 
+	$ ./test.py -l
+	Run parameters: ./test.py -l
+	Exported functions:
+	add [default]
+	  --v1
+	  --v2
+	subtract
+	  --v1
+	  --v2
+
 # Details
 
-It will attempt to parse argument values in the following order:
+Commander Line will attempt to parse argument values in the following order:
 
 1. int
 2. float
