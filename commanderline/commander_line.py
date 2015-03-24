@@ -103,11 +103,13 @@ Commander Line makes any python function accessible from the command-line with j
 
 It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
 
-To enable, just include the following in your code (and replace 'function_name' with your function):
+To enable, just import Commander Line as follows:
 
 	import commanderline.commander_line as cl
-	if __name__ == '__main__':
-		cl.commander_line(function_name)
+
+...and include the following line at the end of your .py file (replace 'function_name' with your function):
+
+	cl.commander_line(function_name) if __name__ == '__main__' else None
 
 It will attempt to parse argument values in the following order:
 
@@ -133,7 +135,7 @@ P.S. Adding:
 
 as your shebang line will provide a nice and portable run environment for your new command-line tool
 	'''
-
+	
 	if argv is None:
 		argv = sys.argv
 
