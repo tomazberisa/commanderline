@@ -51,14 +51,14 @@ Just import Commander Line as follows:
 
 	$ ./test.py -h
 	Run parameters: ./test.py -h
-	 add two values v1 and v2
+	Add two values v1 and v2
 	add arguments (and defaults if defined):
 	  --v1
 	  --v2
 
 	$ ./test.py -f subtract -h
 	Run parameters: ./test.py -f subtract -h
-	 subtract v2 from v2
+	Subtract v2 from v2
 	subtract arguments (and defaults if defined):
 	  --v1
 	  --v2
