@@ -1,4 +1,4 @@
-# Commander Line (for Python 3)
+# Commander Line 0.1.3 (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
 Commander Line makes any python function accessible from the command-line with just a few lines of code.
