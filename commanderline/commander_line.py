@@ -103,7 +103,11 @@ Commander Line makes any python function accessible from the command-line with j
 
 It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
 
-To enable, just import Commander Line as follows:
+To install:
+	
+	$ pip install commanderline
+
+To use, just import Commander Line as follows:
 
 	import commanderline.commander_line as cl
 
