@@ -7,7 +7,7 @@ setup(
   author = 'Tomaz Berisa',
   author_email = 'tomaz.berisa@gmail.com',
   url = 'https://bitbucket.org/tomazberisa/commanderline', 
-  download_url = 'https://bitbucket.org/tomazberisa/commanderline/tarball/0.1', 
+  download_url = 'https://bitbucket.org/tomazberisa/commanderline/get/0.1.tar.gz', 
   keywords = ['command-line'], 
   classifiers = [],
 )
