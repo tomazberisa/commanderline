@@ -1,11 +1,15 @@
-# Commander Line
+# Commander Line (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
 Commander Line makes any python function accessible from the command-line with just a few lines of code.
 
 It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
 
-To enable, just import Commander Line as follows:
+To install:
+	
+	$ pip install commanderline
+
+To use, just import Commander Line as follows:
 
 	import commanderline.commander_line as cl
 
