@@ -126,11 +126,11 @@ Just import Commander Line as follows:
 	import commanderline.commander_line as cl
 
 	def add(v1, v2):
-	  \''' add two values v1 and v2 \'''
+	  \'''Add two values v1 and v2 \'''
 	  print(str(v1)+' + '+str(v2)+' = '+str(v1+v2))
 
 	def subtract(v1, v2):
-	  \''' subtract v2 from v2 \'''
+	  \'''Subtract v2 from v1 \'''
 	  print(str(v1)+' - '+str(v2)+' = '+str(v1-v2))
 
 	cl.commander_line([add, subtract]) if __name__ == '__main__' else None	
