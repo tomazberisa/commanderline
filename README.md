@@ -1,21 +1,62 @@
 # Commander Line 0.1.3 (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
-Commander Line makes any python function accessible from the command-line with just a few lines of code.
+Commander Line makes any python function accessible from the command-line with just 2 lines of code.
 
-It will take any function as a parameter and use the function's parameter names to parse (long) command line arguments (i.e., --param_name) with those same names.
+It will take any function (from the current scope) as a parameter and expose the function's parameters to the command line as long arguments (i.e., --param_name).
 
-To install:
+# Installation
 	
 	$ pip install commanderline
 
-To use, just import Commander Line as follows:
+# Usage
+
+Just import Commander Line as follows:
 
 	import commanderline.commander_line as cl
 
 ...and include the following line at the end of your .py file (replace 'function_name' with your function):
 
 	cl.commander_line(function_name) if __name__ == '__main__' else None
+
+# Example
+
+## test.py 
+
+	#!/usr/bin/env python3
+	
+	import commanderline.commander_line as cl
+
+	def add(v1, v2):
+	  ''' add two values v1 and v2 '''
+	  print(str(v1)+' + '+str(v2)+' = '+str(v1+v2))
+
+	def subtract(v1, v2):
+	  ''' subtract v2 from v2 '''
+	  print(str(v1)+' - '+str(v2)+' = '+str(v1-v2))
+
+	cl.commander_line([add, subtract]) if __name__ == '__main__' else None	
+
+## run / output
+
+	$ ./test.py --v1 5 --v2 4
+	Run parameters: ./test.py --v1 5 --v2 4
+	5 + 4 = 9
+	Done
+
+	$ ./test.py -f subtract --v1 5 --v2 4
+	Run parameters: ./test.py -f subtract --v1 5 --v2 4
+	5 - 4 = 1
+	Done
+
+	$ ./test.py -f subtract -h
+	Run parameters: ./test.py -f subtract -h
+	 subtract v2 from v2
+	subtract arguments (and defaults if defined):
+	  --v1
+	  --v2
+
+# Details
 
 It will attempt to parse argument values in the following order:
 
