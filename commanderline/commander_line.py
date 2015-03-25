@@ -3,6 +3,7 @@
 import sys
 import inspect
 import getopt
+import ast
 
 def represents_int(s):
 	try:
@@ -37,8 +38,20 @@ def represents_none(s):
 		return True
 	else:
 		return False
+
+def represents_complex_datatype(s):
+	try:
+		parsed=ast.literal_eval(s)
+	except:
+		return False
+
+	return True
+
+def parse_complex_datatype(s):
+	'''Assumes s has been tested to not raise exception'''
+	return ast.literal_eval(s)
  
-def try_to_parse(s):
+def try_to_parse_v0_1(s):
 	if represents_int(s):
 		return int(s)
 	elif represents_float(s):
@@ -49,6 +62,15 @@ def try_to_parse(s):
 		return None
 	else: 
 		return s
+
+def try_to_parse_v0_2(s):
+	if represents_complex_datatype(s):
+		return parse_complex_datatype(s)
+	else: 
+		return s
+
+def try_to_parse(s):
+	return try_to_parse_v0_2(s)
 
 def fill_in_defaults(options, spec):
 	num_defaults = 0
@@ -99,9 +121,21 @@ def commander_line(funcs, print_done=True, squash_return_value=True, argv=None, 
 	'''# Commander Line (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
-Commander Line makes any python function with simple arguments (int, float, bool, None, str) accessible from the command-line with just 2 lines of code.
+Commander Line makes any python function accessible from the command-line with just 2 lines of code.
 
 It will take any function (from the current scope) as a parameter and expose the function's parameters to the command line as long arguments (i.e., --param_name).
+
+Best-effort parsing of the parameters is performed. Currently supported data types are:
+1.  int
+2.  float
+3.  complex
+4.  bool
+5.  None
+6.  dict
+7.  list
+8.  set
+9.  tuple
+10. str
 
 # Installation
 	
