@@ -209,8 +209,8 @@ Just import Commander Line as follows:
 	Run parameters: ./test.py -f union -h
 	Union of s1 and s2
 	union arguments (and defaults if defined):
-  	--s1
-  	--s2
+	  --s1
+	  --s2
 
 	$ ./test.py -l
 	Run parameters: ./test.py -l
@@ -222,8 +222,8 @@ Just import Commander Line as follows:
 	  --v1
 	  --v2
 	union
-  	--s1
-  	--s2
+	  --s1
+	  --s2
 
 # Details
 
