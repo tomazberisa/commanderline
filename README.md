@@ -1,9 +1,21 @@
 # Commander Line (for Python 3)
 	commander_line(funcs, print_done=True, squash_return_value=True, argv=None, print_argv_to_output=True, help_prints_args=True)
 
-Commander Line makes any python function with simple arguments (int, float, bool, None, str) accessible from the command-line with just 2 lines of code.
+Commander Line makes any python function accessible from the command-line with just 2 lines of code.
 
 It will take any function (from the current scope) as a parameter and expose the function's parameters to the command line as long arguments (i.e., --param_name).
+
+Best-effort parsing of the parameters is performed. Currently supported data types are:
+1.  int
+2.  float
+3.  complex
+4.  bool
+5.  None
+6.  dict
+7.  list
+8.  set
+9.  tuple
+10. str
 
 # Installation
 	
