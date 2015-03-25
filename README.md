@@ -107,14 +107,6 @@ Just import Commander Line as follows:
 
 # Details
 
-Commander Line will attempt to parse argument values in the following order:
-
-1. int
-2. float
-3. bool (True or False)
-4. None
-5. leave as string (default)
-
 Commander Line respects default values defined by your function and will use them when needed (i.e., when arguments are missing).
 
 By default, it will print out the command line arguments, return 0, and print 'Done' when your function has finished. This behaviour can be controlled with the print_argv_to_output, squash_return_value, and print_done parameters (respectively).
