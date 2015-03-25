@@ -168,7 +168,11 @@ Just import Commander Line as follows:
 	  \'''Subtract v2 from v1 \'''
 	  print(str(v1)+' - '+str(v2)+' = '+str(v1-v2))
 
-	cl.commander_line([add, subtract]) if __name__ == '__main__' else None	
+	def union(s1, s2):
+		\'''Union of s1 and s2 \'''
+		print(str(s1)+' | '+str(s2)+' = '+str(s1|s2))
+
+	cl.commander_line([add, subtract, union]) if __name__ == '__main__' else None	
 
 ## run / output
 
@@ -180,6 +184,11 @@ Just import Commander Line as follows:
 	$ ./test.py -f subtract --v1 5 --v2 4
 	Run parameters: ./test.py -f subtract --v1 5 --v2 4
 	5 - 4 = 1
+	Done
+
+	./test.py -f union --s1="{1,2,3}" --s2="{2,3,4}"
+	Run parameters: ./test.py -f union --s1={1,2,3} --s2={2,3,4}
+	{1, 2, 3} | {2, 3, 4} = {1, 2, 3, 4}
 	Done
 
 	$ ./test.py -h
@@ -196,6 +205,13 @@ Just import Commander Line as follows:
 	  --v1
 	  --v2
 
+	$ ./test.py -f union -h
+	Run parameters: ./test.py -f union -h
+	Union of s1 and s2
+	union arguments (and defaults if defined):
+  	--s1
+  	--s2
+
 	$ ./test.py -l
 	Run parameters: ./test.py -l
 	Exported functions:
@@ -205,6 +221,9 @@ Just import Commander Line as follows:
 	subtract
 	  --v1
 	  --v2
+	union
+  	--s1
+  	--s2
 
 # Details
 
