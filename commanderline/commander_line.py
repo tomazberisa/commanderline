@@ -5,39 +5,39 @@ import inspect
 import getopt
 import ast
 
-def represents_int(s):
-	try:
-		int(s)
-		return True
-	except ValueError:
-		return False
+# def represents_int(s):
+# 	try:
+# 		int(s)
+# 		return True
+# 	except ValueError:
+# 		return False
 
-def represents_float(s):
-	try:
-		float(s)
-		return True
-	except ValueError:
-		return False
+# def represents_float(s):
+# 	try:
+# 		float(s)
+# 		return True
+# 	except ValueError:
+# 		return False
 
-def represents_bool(s):
-	if s == 'True' or s == 'False':
-		return True
-	else:
-		return False
+# def represents_bool(s):
+# 	if s == 'True' or s == 'False':
+# 		return True
+# 	else:
+# 		return False
 
-def parse_bool(s):
-	if s == 'True':
-		return True
-	elif s == 'False':
-		return False
-	else:
-		return bool(s)
+# def parse_bool(s):
+# 	if s == 'True':
+# 		return True
+# 	elif s == 'False':
+# 		return False
+# 	else:
+# 		return bool(s)
 
-def represents_none(s):
-	if s == 'None':
-		return True
-	else:
-		return False
+# def represents_none(s):
+# 	if s == 'None':
+# 		return True
+# 	else:
+# 		return False
 
 def represents_complex_datatype(s):
 	try:
@@ -51,17 +51,17 @@ def parse_complex_datatype(s):
 	'''Assumes s has been tested to not raise exception'''
 	return ast.literal_eval(s)
  
-def try_to_parse_v0_1(s):
-	if represents_int(s):
-		return int(s)
-	elif represents_float(s):
-		return float(s)
-	elif represents_bool(s):
-		return parse_bool(s)
-	elif represents_none(s):
-		return None
-	else: 
-		return s
+# def try_to_parse_v0_1(s):
+# 	if represents_int(s):
+# 		return int(s)
+# 	elif represents_float(s):
+# 		return float(s)
+# 	elif represents_bool(s):
+# 		return parse_bool(s)
+# 	elif represents_none(s):
+# 		return None
+# 	else: 
+# 		return s
 
 def try_to_parse_v0_2(s):
 	if represents_complex_datatype(s):
