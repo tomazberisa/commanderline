@@ -109,13 +109,13 @@ Just import Commander Line as follows:
 
 Commander Line respects default values defined by your function and will use them when needed (i.e., when arguments are missing).
 
-By default, it will print out the command line arguments, return 0, and print 'Done' when your function has finished. This behaviour can be controlled with the print_argv_to_output, squash_return_value, and print_done parameters (respectively).
+By default, it will print out the command line arguments, return 0, and print 'Done' when your function has finished. This behaviour can be controlled with the ```print_argv_to_output```, ```squash_return_value```, and ```print_done``` parameters (respectively).
 
-Your function's __doc__ string will be printed when either of the -h and --help arguments are provided. A summary of its parameters and defaults will also be printed (existence of summary can be controlled with help_prints_args).
+Your function's ```__doc__``` string will be printed when either of the ```-h``` and ```--help``` arguments are provided. A summary of its parameters and defaults will also be printed (existence of summary can be controlled with ```help_prints_args```).
 
-If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the -f <func_name> argument. If none is specified, the first element in the tuple/list is taken as default.
+If you provide a list or tuple of functions instead of a single function, you can specify which one to call from the command line with the ```-f <func_name>``` argument. If none is specified, the first element in the tuple/list is taken as default.
 
-List functions that are exported (and their command line arguments) with -l
+List functions that are exported (and their command line arguments) with ```-l```
 
 P.S. Adding: 
 
